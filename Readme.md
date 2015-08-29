@@ -24,8 +24,6 @@ The files and folders to look for when finding the root directory. Setting your 
 ```vimL
 	" Overriding the default list
 	let g:root#patterns = ['.sass-cache', 'Readme.md', 'gulpfile.coffee']
-
-	" Adding to the default list
 ```
 
 You can add to the default list in two ways:
@@ -46,7 +44,7 @@ Default: `let g:root#auto = 0`
 root.vim supports automatically changing your directory to the project root on file open. This option is disabled by default and can be enabled by changing the value to a 1
 
 ### Auto Patterns
-Default: `let g:root#autocmd_patterns = "\*"`
+Default: `let g:root#autocmd_patterns = "*"`
 
 When `g:root#auto` is set to a 1 all files trigger the automatic behavior. You can restrict this to specific files and extensions using a comma seperated list.
 
