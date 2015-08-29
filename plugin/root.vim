@@ -15,57 +15,63 @@ if !exists("g:root#auto")
 	let g:root#auto = 0
 endif
 
+if !exists("g:root#autocmd_patterns")
+	let g:root#autocmd_patterns = "*"
+endif
+
 if !exists("g:root#echo")
 	let g:root#echo = 1
 endif
 
 if !exists("g:root#override_autochdir")
-	let g:root#disable_autochdir = 0
+	let g:root#disable_autochdir = 1
 endif
 
 " Find Taskrunner {{{
 
 function! FindRoot()
-
 	" The plugin doesn't work with autochdir
-	if exists('+autochdir') && &autochdir && g:root#disable_autochdir == 0
+	if exists('+autochdir') && &autochdir && g:root#disable_autochdir == 1
 	  set noautochdir
 	endif
 
-	" start in file's directory
 	lcd %:p:h
+	let liststart = 0
 
-	" start at first directory in list
-	let sdir = 0
-
-	for dir in g:root#patterns[sdir : len(g:root#patterns)]
-		if matchstr(dir, '\w\+\.\w*$') == dir
-			let fullpath = findfile(dir, ";")
+	for pattern in g:root#patterns[liststart : len(g:root#patterns)]
+		if matchstr(pattern, '\w\+\.\w*$') == pattern
+			let fullpath = findfile(pattern, ";")
 		else
-			let fullpath = finddir(dir, ";")
+			let fullpath = finddir(pattern, ";")
 		endif
 
-			let pattern = matchstr(fullpath, '\w*\.*\w*\-*\w*$')
-			let path = matchstr(fullpath, '.*\/')
+		" Split the directory into path/match
+		let match = matchstr(fullpath, '[^\/]*$')
+		let path = matchstr(fullpath, '.*\/')
+		let home = $HOME . "/" . pattern
 
-			let homedir = $HOME . "/" . dir
+		" If the search hits $HOME try the next item in the list.
+		" Once a match is found break the loop.
+		if fullpath == home
+			let liststart = liststart + 1
+			lcd %:p:h
+		elseif empty(match) == 0
+			break
+		endif
 
-			if fullpath == homedir
-				let sdir = sdir + 1
-				lcd %:p:h
-			elseif empty(pattern) == 0
-				break
-			elseif sdir == len(g:root#patterns)
-				let sdir = 0
-			endif
-
-		echom matchstr(dir, "\w+\.\w*$")
+		if liststart == len(g:root#patterns)
+			let liststart = 0
+		endif
 	endfor
 
-	execute "lcd" . " " path
+	if path != ""
+		execute "lcd" . " " path
+	endif
 
-	if g:root#echo == 1
-		echo "found" pattern "in" getcwd()
+	if g:root#echo == 1 && match != ""
+		echom "found" match "in" getcwd()
+	else
+		echom "Root dir not found"
 	endif
 endfunction
 
@@ -78,6 +84,6 @@ command! -nargs=* -complete=file Root call FindRoot()
 if g:root#auto == 1
 	augroup root
 		au!
-		autocmd BufEnter * :Root
+		execute 'autocmd BufEnter ' . g:root#autocmd_patterns . ' :Root'
 	augroup END
 endif
