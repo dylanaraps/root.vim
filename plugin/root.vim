@@ -31,14 +31,16 @@ endif
 
 function! FindRoot()
 	" The plugin doesn't work with autochdir
-	if exists('+autochdir') && &autochdir && g:root#disable_autochdir == 1
+	if g:root#disable_autochdir == 1
 	  set noautochdir
 	endif
 
+	" Start in open file's directory
 	lcd %:p:h
 	let liststart = 0
 
 	for pattern in g:root#patterns[liststart : len(g:root#patterns)]
+		" If pattern is a file use findfile() else use finddir()
 		if matchstr(pattern, '\w\+\.\w*$') == pattern
 			let fullpath = findfile(pattern, ";")
 		else
@@ -48,9 +50,11 @@ function! FindRoot()
 		" Split the directory into path/match
 		let match = matchstr(fullpath, '[^\/]*$')
 		let path = matchstr(fullpath, '.*\/')
+
+		" $HOME + match
 		let home = $HOME . "/" . pattern
 
-		" If the search hits $HOME try the next item in the list.
+		" If the search hits home try the next item in the list.
 		" Once a match is found break the loop.
 		if fullpath == home
 			let liststart = liststart + 1
@@ -59,17 +63,19 @@ function! FindRoot()
 			break
 		endif
 
+		" If the search hits the end of the list start over
 		if liststart == len(g:root#patterns)
 			let liststart = 0
 		endif
 	endfor
 
+	" If path is anything but blank
 	if path != ""
 		execute "lcd" . " " path
 	endif
 
 	if g:root#echo == 1 && match != ""
-		echom "found" match "in" getcwd()
+		echom "Found" match "in" getcwd()
 	else
 		echom "Root dir not found"
 	endif
@@ -77,8 +83,7 @@ endfunction
 
 " }}}
 
-" This command works with all of gulp/grunt's cmdline flags
-command! -nargs=* -complete=file Root call FindRoot()
+command! Root call FindRoot()
 
 " Autocmd
 if g:root#auto == 1
