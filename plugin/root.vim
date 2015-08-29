@@ -29,7 +29,7 @@ endif
 
 " Find Taskrunner {{{
 
-function! FindRoot()
+function! s:FindRoot()
 	" The plugin doesn't work with autochdir
 	if g:root#disable_autochdir == 1
 	  set noautochdir
@@ -41,18 +41,18 @@ function! FindRoot()
 
 	for pattern in g:root#patterns[liststart : len(g:root#patterns)]
 		" If pattern is a file use findfile() else use finddir()
-		if matchstr(pattern, '\w\+\.\w*$') == pattern
-			let fullpath = findfile(pattern, ";")
+		if matchstr(pattern, '\m\C\w\+\.\w*$') == pattern
+			let fullpath = findfile(pattern, ';')
 		else
-			let fullpath = finddir(pattern, ";")
+			let fullpath = finddir(pattern, ';')
 		endif
 
 		" Split the directory into path/match
-		let match = matchstr(fullpath, '[^\/]*$')
-		let path = matchstr(fullpath, '.*\/')
+		let match = matchstr(fullpath, '\m\C[^\/]*$')
+		let path = matchstr(fullpath, '\m\C.*\/')
 
 		" $HOME + match
-		let home = $HOME . "/" . pattern
+		let home = $HOME . '/' . pattern
 
 		" If the search hits home try the next item in the list.
 		" Once a match is found break the loop.
@@ -70,20 +70,20 @@ function! FindRoot()
 	endfor
 
 	" If path is anything but blank
-	if path != ""
-		execute "lcd" . " " path
+	if path != ''
+		execute 'lcd' . ' ' path
 	endif
 
-	if g:root#echo == 1 && match != ""
-		echom "Found" match "in" getcwd()
+	if g:root#echo == 1 && match != ''
+		echom 'Found' match 'in' getcwd()
 	else
-		echom "Root dir not found"
+		echom 'Root dir not found'
 	endif
 endfunction
 
 " }}}
 
-command! Root call FindRoot()
+command! Root call s:FindRoot()
 
 " Autocmd
 if g:root#auto == 1
