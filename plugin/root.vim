@@ -27,12 +27,12 @@ if !exists("g:root#override_autochdir")
 	let g:root#disable_autochdir = 1
 endif
 
-" Find Taskrunner {{{
+" Find Root {{{
 
 function! s:FindRoot()
 	" The plugin doesn't work with autochdir
 	if g:root#disable_autochdir == 1
-	  set noautochdir
+		set noautochdir
 	endif
 
 	" Start in open file's directory
@@ -76,7 +76,7 @@ function! s:FindRoot()
 
 	if g:root#echo == 1 && match != ''
 		echom 'Found' match 'in' getcwd()
-	else
+	elseif g:root#echo == 1
 		echom 'Root dir not found'
 	endif
 endfunction
