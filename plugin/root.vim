@@ -71,7 +71,7 @@ function! s:FindRoot()
 
 	" If path is anything but blank
 	if path != ''
-		execute 'lcd' . ' ' path
+		exe 'lcd' . ' ' path
 	endif
 
 	if g:root#echo == 1 && match != ''
@@ -89,6 +89,6 @@ command! Root call s:FindRoot()
 if g:root#auto == 1
 	augroup root
 		au!
-		execute 'autocmd BufEnter ' . g:root#autocmd_patterns . ' :Root'
+		exe 'autocmd BufEnter ' . g:root#autocmd_patterns . ' :Root'
 	augroup END
 endif
