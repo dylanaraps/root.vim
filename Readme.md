@@ -11,7 +11,7 @@ I wrote this plugin for fun and was heavily inspired by [vim-rooter](https://git
 Use your favorite plugin manager.
 
 - [vim-plug](https://github.com/junegunn/vim-plug)
-  1. Add `Plug 'dylanaraps/taskrunner.nvim'` to your .nvimrc
+  1. Add `Plug 'dylanaraps/root.nvim'` to your .nvimrc
   2. Run `:PlugInstall`
 
 ## Options
