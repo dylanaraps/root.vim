@@ -4,7 +4,7 @@
 " License: MIT license
 "=============================================================
 
-if exists("g:loaded_root")
+if exists('g:loaded_root')
     finish
 endif
 let g:loaded_root = 1
