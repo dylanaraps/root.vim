@@ -42,7 +42,7 @@ You can add to the default list like this:
 
 Default: `let g:root#auto = 0`
 
-root.vim supports automatically changing your directory to the project root on file open. This option is disabled by default and can be enabled by changing the value to a 1
+root.vim supports automatically changing your directory to the project root on file open. This option is disabled by default and can be enabled by changing the value to a 1.
 
 
 ### Auto Patterns
@@ -64,7 +64,7 @@ When `g:root#auto` is set to a 1 all files trigger the automatic behavior. You c
 
 Default: `let g:root#echo = 1`
 
-Enable/Disable echoing of the "Directory changed to ~/folder/../.."
+Enable/Disable echoing of the "Directory changed to ~/folder/../..".
 
 ```vimL
 	" Disable echoing on dir change

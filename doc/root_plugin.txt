@@ -1,4 +1,5 @@
-*root_plugin.txt* Automatically set directory to your project's root based on a known dir/file.
+*root_plugin.txt* Automatically set directory to your project's root based
+on a known dir/file.
 
 Version: 0.1.0
 Author:  Dylan Araps <dylan.araps at gmail.com>
@@ -13,9 +14,13 @@ Configuration Examples	|root_plugin-options|
 ==============================================================================
 INTRODUCTION					*root_plugin-introduction*
 
-*root.vim* changes your working directory to your project's root automatically on file open or manually with the :Root command.
+*root.vim* changes your working directory to your project's root automatically
+on file open or manually with the :Root command.
 
-The plugin identifies the root of your project using a known file/directory. By default it looks for VCS folders such as .git, .hg and .bzr but you can configure it to look for any number of files or folders that sit in your project's root.
+The plugin identifies the root of your project using a known file/directory.
+By default it looks for VCS folders such as .git, .hg and .bzr but you can
+configure it to look for any number of files or folders that sit in your
+project's root.
 
 I wrote this plugin for fun and was heavily inspired by vim-rooter.
 
@@ -33,37 +38,42 @@ Note: There's also an 'auto' behavior that's disabled by default. See below.
 ==============================================================================
 OPTIONS					        *root_plugin-options*
 
-The files and folders to look for when finding the root directory. Setting your own value overwrites the defaults.
+The files and folders to look for when finding the root directory. Setting
+your own value overwrites the defaults.
 
 >
     " Default
     let g:root#patterns = ['.git', '_darcs', '.hg', '.bzr', '.svn']
 
-	" Overriding the default list
-	let g:root#patterns = ['.sass-cache', 'Readme.md', 'gulpfile.coffee']
+    " Overriding the default list
+    let g:root#patterns = ['.sass-cache', 'Readme.md', 'gulpfile.coffee']
 
     " Appending to the existing list.
-	let g:root#patterns += ['.sass-cache', 'Readme.md', 'gulpfile.coffee']
+    let g:root#patterns += ['.sass-cache', 'Readme.md', 'gulpfile.coffee']
 <
 
-root.vim supports automatically changing your directory to the project root on file open. This option is disabled by default and can be enabled by changing the value to a 1
+root.vim supports automatically changing your directory to the project root
+on file open. This option is disabled by default and can be enabled by
+changing the value to a 1.
 
 >
     " Default
     let g:root#auto = 0
 <
 
-When g:root#auto is set to a 1 all files trigger the automatic behavior. You can restrict this to specific files and extensions using a comma separated list.
+When g:root#auto is set to a 1 all files trigger the automatic behavior.
+You can restrict this to specific files and extensions using a comma
+separated list.
 
 >
-	" Limit the automatic behavior to only html/css/js files
-	let g:root#autocmd_patterns = "*.html,*.css,*.js"
+    " Limit the automatic behavior to only html/css/js files
+    let g:root#autocmd_patterns = "*.html,*.css,*.js"
 
-	" Limit the automatic behavior to files starting with Bob
-	let g:root#autocmd_patterns = "Bob*.*"
+    " Limit the automatic behavior to files starting with Bob
+    let g:root#autocmd_patterns = "Bob*.*"
 <
 
-Enable/Disable echoing of the "Directory changed to ~/folder/../.."
+Enable/Disable echoing of the "Directory changed to ~/folder/../..".
 
 >
     " Default
