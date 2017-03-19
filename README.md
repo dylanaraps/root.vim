@@ -6,6 +6,7 @@ The plugin identifies the root of your project using a known file/directory. By 
 
 I wrote this plugin for fun and was heavily inspired by [vim-rooter](https://github.com/airblade/vim-rooter).
 
+
 ## Installation
 
 Use your favorite plugin manager.
@@ -14,9 +15,12 @@ Use your favorite plugin manager.
   1. Add `Plug 'dylanaraps/root.nvim'` to your .nvimrc
   2. Run `:PlugInstall`
 
+
 ## Options
 
+
 ### Patterns
+
 Default: `let g:root#patterns = ['.git', '_darcs', '.hg', '.bzr', '.svn']`
 
 The files and folders to look for when finding the root directory. Setting your own value overwrites the defaults.
@@ -26,27 +30,26 @@ The files and folders to look for when finding the root directory. Setting your 
 	let g:root#patterns = ['.sass-cache', 'Readme.md', 'gulpfile.coffee']
 ```
 
-You can add to the default list in two ways:
+You can add to the default list like this:
 
 ```vimL
 	" Add more files/folders without losing default values
-
-	" 1
 	let g:root#patterns += ['.sass-cache', 'Readme.md', 'gulpfile.coffee']
-
-	" 2
-	let g:root#patterns = g:root#patterns + ['.sass-cache', 'Readme.md', 'gulpfile.coffee']
 ```
 
+
 ### Auto
+
 Default: `let g:root#auto = 0`
 
 root.vim supports automatically changing your directory to the project root on file open. This option is disabled by default and can be enabled by changing the value to a 1
 
+
 ### Auto Patterns
+
 Default: `let g:root#autocmd_patterns = "*"`
 
-When `g:root#auto` is set to a 1 all files trigger the automatic behavior. You can restrict this to specific files and extensions using a comma seperated list.
+When `g:root#auto` is set to a 1 all files trigger the automatic behavior. You can restrict this to specific files and extensions using a comma separated list.
 
 ```vimL
 	" Limit the automatic behavior to only html/css/js files
@@ -56,7 +59,9 @@ When `g:root#auto` is set to a 1 all files trigger the automatic behavior. You c
 	let g:root#autocmd_patterns = "Bob*.*"
 ```
 
+
 ### Echo
+
 Default: `let g:root#echo = 1`
 
 Enable/Disable echoing of the "Directory changed to ~/folder/../.."
@@ -65,8 +70,3 @@ Enable/Disable echoing of the "Directory changed to ~/folder/../.."
 	" Disable echoing on dir change
 	let g:root#echo = 0
 ```
-
-### Disable autochdir
-Default: `let g:root#disable_autochdir = 1`
-
-The plugin doesn't work when autochdir is enabled so it disables it. If you'd like to for some reason have it enabled, setting this to a 0 will stop the plugin from overriding autochdir.
