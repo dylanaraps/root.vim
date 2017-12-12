@@ -50,7 +50,7 @@ function! root#FindRoot()
             endif
 
             " If the search hits the end of the list start over
-            if l:liststart == len(g:root#l:patterns)
+            if l:liststart == len(g:root#patterns)
                 let l:liststart = 0
             endif
         endfor
