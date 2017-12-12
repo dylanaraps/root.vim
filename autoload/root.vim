@@ -16,6 +16,11 @@ function! root#FindRoot()
         " The plugin doesn't work with autochdir
         set noautochdir
 
+        " The plugin only works with local directories
+        if expand('%:p') =~ '://'
+            return
+        endif
+
         " Start in open file's directory
         lcd %:p:h
         let l:liststart = 0
