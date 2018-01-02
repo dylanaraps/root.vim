@@ -17,12 +17,12 @@ function! root#FindRoot()
         set noautochdir
 
         " The plugin only works with local directories
-        if expand('%:p') =~ '://'
+        if expand('%:p') =~? '://'
             return
         endif
 
         " Start in open file's directory
-        lcd %:p:h
+        silent! lcd %:p:h
         let l:liststart = 0
 
         for l:pattern in g:root#patterns[l:liststart : len(g:root#patterns)]
