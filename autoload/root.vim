@@ -37,12 +37,9 @@ function! root#FindRoot()
             let l:match = matchstr(l:fullpath, '\m\C[^\/\\]*$')
             let l:path = matchstr(l:fullpath, '\m\C.*[\/\\]')
 
-            " $HOME + match
-            let l:home = $HOME . '/' . l:pattern
-
-            " If the search hits home try the next item in the list.
+            " If the search hits the root, try the next item in the list.
             " Once a match is found break the loop.
-            if l:fullpath == l:home
+            if l:fullpath == ''
                 let l:liststart = l:liststart + 1
                 lcd %:p:h
             elseif empty(l:match) == 0
