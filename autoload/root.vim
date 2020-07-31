@@ -34,8 +34,8 @@ function! root#FindRoot()
             endif
 
             " Split the directory into path/match
-            let l:match = matchstr(l:fullpath, '\m\C[^\/]*$')
-            let l:path = matchstr(l:fullpath, '\m\C.*\/')
+            let l:match = matchstr(l:fullpath, '\m\C[^\/\\]*$')
+            let l:path = matchstr(l:fullpath, '\m\C.*[\/\\]')
 
             " $HOME + match
             let l:home = $HOME . '/' . l:pattern
